@@ -1,5 +1,3 @@
-declare namespace System {
-    interface IFormatProvider {
-        GetFormat(format: any): object;
-    }
+export interface IFormatProvider {
+    GetFormat(format: any): object;
 }
