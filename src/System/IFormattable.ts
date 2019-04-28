@@ -1,7 +1,8 @@
-import { IFormatProvider } from "./IFormatProvider";
 
+namespace System {
 
-export interface IFormattable {
-	ToString(format: string, formatProvider: IFormatProvider) : string
+	export interface IFormattable {
+		ToString(format: string, formatProvider: IFormatProvider) : string
+	}
+
 }
-

@@ -1,5 +1,8 @@
 
-export interface IComparable<T = any> {
-	CompareTo(other: T) : number
+namespace System {
+	export interface IComparable<T = any> {
+		CompareTo(other: T) : number
+	}
 }
+
 
