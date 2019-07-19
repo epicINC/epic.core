@@ -1,9 +1,19 @@
 {
   "name": "epic.core",
   "version": "1.0.0",
-	"main": "./dist/index",
-	"types": "./dist/index",
-	
+  "main": "./dist/index",
+  "types": "./dist/index",
   "author": "S",
-  "license": "MIT"
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.6",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  }
 }
