@@ -1,7 +1,7 @@
 const numCPUs = require('os').cpus().length
 import {ArrayHelper} from '../Collections/ArrayHelper'
 
-type Func1<T, TResult> = (arg: T) => TResult
+
 export class Parallel {
 	static options = { workers: numCPUs}
 
@@ -19,11 +19,14 @@ export class Parallel {
 				console.log('run', i)
 			}
 		}
-		console.log('currentStep', currentStep)
 		if (currentStep)
 			ArrayHelper.Merge(result, await Promise.all(items.slice(0, currentStep)))
 			
 		return result
+	}
+
+	static async ForEach<T, K>(collection: ArrayLike<T>, fn: Func2<T, number, Promise<K>>) {
+		return await this.For(0, collection.length, e => fn(collection[e], e))
 	}
 
 	static async Delay (ts = 500) {
