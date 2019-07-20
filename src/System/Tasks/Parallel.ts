@@ -1,7 +1,6 @@
 const numCPUs = require('os').cpus().length
 import {ArrayHelper} from '../Collections/ArrayHelper'
 
-
 export class Parallel {
 	static options = { workers: numCPUs}
 
@@ -29,23 +28,9 @@ export class Parallel {
 		return await this.For(0, collection.length, e => fn(collection[e], e))
 	}
 
-	static async Delay (ts = 500) {
-		return new Promise(resolve => setTimeout(resolve, ts))
+	static async Invoke(action: Action0[]) {
+
 	}
+
+
 }
-
-
-async function test() {
-	console.log('workers', numCPUs)
-	let result = await Parallel.For(0, 12, async (i: number) => {
-		await Parallel.Delay(Math.random() * 500)
-		return i
-	})
-
-	console.log('result', result)
-}
-
-
-test()
-
-

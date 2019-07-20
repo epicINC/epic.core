@@ -5,6 +5,18 @@ declare global {
 }
 
 
+
+type Many<T> = T | T[]
+
+type Deferred<T> = {
+		[P in keyof T]: Promise<T[P]>
+}
+
+type Proxify<T> = {
+		[P in keyof T]: { get() : T[P]; set(v: T[P]) : void }
+}
+type Predicate<T> = (item: T) => boolean
+
 type Action0 = () => void
 type Action1<T> = (arg: T) => void
 type Action2<T1, T2> = (arg1: T1, arg2: T2) => void
@@ -28,16 +40,8 @@ type Func8<T1, T2, T3, T4, T5, T6, T7, T8, TResult> = (arg1: T1, arg2: T2, arg3:
 
 
 declare global {
-	type Many<T> = T | T[]
 
-	type Deferred<T> = {
-			[P in keyof T]: Promise<T[P]>
-	}
-
-	type Proxify<T> = {
-			[P in keyof T]: { get() : T[P]; set(v: T[P]) : void }
-	}
-
+/*
 	interface Action {
 			() : void
 			<T>(arg: T) : void
@@ -61,7 +65,9 @@ declare global {
 			<T1, T2, T3, T4, T5, T6, T7, TResult>(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7) : TResult
 			<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8) : TResult
 	}
-	type Predicate<T> = (item: T) => boolean
+*/
+
+
 
 	function Funx<TResult>() : TResult
 	function Funx<T, TResult>(arg: T) : TResult
