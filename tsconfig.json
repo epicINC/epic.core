@@ -1,33 +1,40 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
-        "module": "commonjs",
-        "target": "esnext",
-        "moduleResolution": "node",
-				"sourceMap": true,
-				"esModuleInterop": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "declaration": true,
-        "importHelpers": false,
-        "alwaysStrict": true,
-        "pretty": true,
-        "noUnusedParameters": false,
-        "noUnusedLocals": false,
-        "skipDefaultLibCheck": true,
-        "skipLibCheck": true,
-				"strictNullChecks": true
+			"baseUrl": ".",
+			"outDir": "./dist/",
+			"module": "commonjs",
+			"target": "esnext",
+			"moduleResolution": "node",
+			"sourceMap": true,
+			"esModuleInterop": true,
+			"emitDecoratorMetadata": true,
+			"experimentalDecorators": true,
+			"removeComments": true,
+			"preserveConstEnums": true,
+			"noImplicitAny": true,
+			"noImplicitReturns": true,
+			"noImplicitThis": true,
+			"suppressImplicitAnyIndexErrors": true,
+			"declaration": true,
+			"importHelpers": false,
+			"alwaysStrict": true,
+			"pretty": true,
+			"noUnusedParameters": false,
+			"noUnusedLocals": false,
+			"skipDefaultLibCheck": true,
+			"skipLibCheck": true,
+			"strictNullChecks": true,
+			"paths": {
+				"*": [
+						"./node_modules/*",
+						"./src/types/*"
+				]
+			},
     },
     "formatCodeOptions": {
         "indentSize": 2,
         "tabSize": 2
-    },
+		},
     "include": [
         "./src/**/*"
     ]

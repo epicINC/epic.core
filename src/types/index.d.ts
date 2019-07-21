@@ -1,8 +1,8 @@
-declare global {
+
 	interface Date {
 		Subtract: (value: Date) => TimeSpan
 	}
-}
+
 
 
 

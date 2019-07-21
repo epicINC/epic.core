@@ -14,17 +14,43 @@ type BinaryNode<T> = {v: T, l: BinaryNode<T> | null, r: BinaryNode<T> | null}
 export class ArrayHelper {
 
 	static Merge<T = unknown>(src: Array<T>, dest: Array<T>) {
-		return this.CopyTo(src, src.length, dest, 0, dest.length)
+		const srcLen = src.length, destLen = dest.length
+		src.length = srcLen + destLen
+
+		// Add arr2 items to arr1
+		for(let i = 0; i < destLen; i++){
+			src[srcLen + i] = dest[i]
+		}
+
+
+		//return this.CopyTo(src, src.length, dest, 0, dest.length)
 	}
 
 
 	// ref: https://dev.to/uilicious/javascript-array-push-is-945x-faster-than-array-concat-1oki
 	static CopyTo<T = unknown>(src: Array<T>, srcOffset: number, dest: Array<T>, destOffset: number, count: number) {
+		const len = srcOffset + count
+		if (len > src.length) src.length = len
+
 		for(let i = 0; i < count; i++)
 			src[srcOffset + i] = dest[destOffset + i]
 		return src
 	}
 
+	static Binary<T>(target: T[], value: T) {
+		let low = 0, hight = target.length -1, mid: number
+		while(low <= hight) {
+			mid = (low + hight) >>> 1
+			if (target[mid] < value)
+				low = mid + 1
+			else if (target[mid] > value)
+				hight = mid - 1
+			else
+				return mid
+		}
+		return -1
+	}
+ 
 
 	static DistinctSet<T>(target: T[], selector?: Indexable | Func1<T, unknown>) {
 		if (!selector) return Array.from(new Set(target))
@@ -52,16 +78,18 @@ export class ArrayHelper {
 							break
 						}
 						root = root.r
-					} else if (item < root.v) {
+						continue
+					}
+					if (item < root.v) {
 						if (!root.l) {
 							root.l = {v: item, l: null, r: null}
 							break
 						}
 						root = root.l
-					} else {
-						uv = false
-						break
+						continue
 					}
+					uv = false
+					break
 				}
 				if (uv) set.push(item)
 			}
