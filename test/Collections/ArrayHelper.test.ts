@@ -1,5 +1,5 @@
 
-import {ArrayHelper} from '../src/System/Collections/ArrayHelper'
+import {ArrayHelper} from '../../src/System/Collections/ArrayHelper'
 
 
 test('ArrayHelper: Merge', () => {

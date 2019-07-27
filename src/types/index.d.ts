@@ -1,10 +1,16 @@
 
-	interface Date {
-		Subtract: (value: Date) => TimeSpan
-	}
+interface Date {
+	Subtract: (value: Date) => TimeSpan
+	format(format: string): string
+}
 
+type Tree<T> = {
+	value: T;
+	left: Tree<T>
+	right: Tree<T>
+}
 
-
+type LinkedList<T> = T & { next: LinkedList<T> }
 
 type Many<T> = T | T[]
 
@@ -12,9 +18,6 @@ type Deferred<T> = {
 		[P in keyof T]: Promise<T[P]>
 }
 
-type Proxify<T> = {
-		[P in keyof T]: { get() : T[P]; set(v: T[P]) : void }
-}
 type Predicate<T> = (item: T) => boolean
 
 type Action0 = () => void

@@ -22,7 +22,7 @@ export class ArrayHelper {
 			src[srcLen + i] = dest[i]
 		}
 
-
+		return src
 		//return this.CopyTo(src, src.length, dest, 0, dest.length)
 	}
 
@@ -64,25 +64,27 @@ export class ArrayHelper {
 		});
 	}
 
-	static DistinctBinary<T>(target: T[]) {
+	static DistinctBinary<T, K = unknown>(target: T[], selector?: Indexable | Func1<T, K>) {
+		const fn: Func1<T, K> = selector ? (typeof(selector) !== 'function' ? Selector.MakeSelector<T>(selector) : selector) : (e: T) => e
+		
 		let
 			set = [target[0]],
-			bst: BinaryNode<T> = {v:target[0], l: null, r: null}
+			bst: BinaryNode<K> = {v: fn(target[0]), l: null, r: null}
 
-			for(let i = 1, item: T, uv, root, count = target.length; i < count; i++) {
-				item = target[i], root = bst, uv = true
+			for(let i = 1, item: T, key: K, uv, root, count = target.length; i < count; i++) {
+				item = target[i], key = fn(item), root = bst, uv = true
 				while(true) {
-					if (item > root.v) {
+					if (key > root.v) {
 						if (!root.r) {
-							root.r = {v: item, l: null, r: null}
+							root.r = {v: key, l: null, r: null}
 							break
 						}
 						root = root.r
 						continue
 					}
-					if (item < root.v) {
+					if (key < root.v) {
 						if (!root.l) {
-							root.l = {v: item, l: null, r: null}
+							root.l = {v: key, l: null, r: null}
 							break
 						}
 						root = root.l

@@ -24,6 +24,7 @@
 			"skipDefaultLibCheck": true,
 			"skipLibCheck": true,
 			"strictNullChecks": true,
+			"incremental": true,
 			"paths": {
 				"*": [
 						"./node_modules/*",

@@ -15,7 +15,6 @@ export class Parallel {
 			if (currentStep === step) {
 				ArrayHelper.Merge(result, await Promise.all(items))
 				currentStep = 0
-				console.log('run', i)
 			}
 		}
 		if (currentStep)

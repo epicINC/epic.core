@@ -60,10 +60,3 @@ export class Dictionary<TKey, TValue> {
 		return this
 	}
 }
-
-let d = new Dictionary<string, string>()
-
-
-d['count'] = 'test'
-console.log(d['count'])
-console.log(d.Count)
