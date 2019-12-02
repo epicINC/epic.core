@@ -92,9 +92,8 @@ Date.prototype.format = function (format: string, lng = 'zh-cn') {
 					// period or era
 					return ''
 			default:
-				break
+				return substring
 		}
-		return substring
 	})
 }
 
