@@ -19,8 +19,9 @@ type Deferred<T> = {
 }
 
 type Predicate<T> = (item: T) => boolean
+type Converter<TInput, TOutput> = (item: TInput) => TOutput
 
-type Action0 = () => void
+type Action = () => void
 type Action1<T> = (arg: T) => void
 type Action2<T1, T2> = (arg1: T1, arg2: T2) => void
 type Action3<T1, T2, T3> = (arg1: T1, arg2: T2, arg3: T3) => void
@@ -29,8 +30,9 @@ type Action5<T1, T2, T3, T4, T5> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5
 type Action6<T1, T2, T3, T4, T5, T6> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => void
 type Action7<T1, T2, T3, T4, T5, T6, T7> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7) => void
 type Action8<T1, T2, T3, T4, T5, T6, T7, T8> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8) => void
+type Action9<T1, T2, T3, T4, T5, T6, T7, T8, T9> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8, arg9: T9) => void
 
-type Func0<TResult> = () => TResult
+type Func<TResult> = () => TResult
 type Func1<T, TResult> = (arg: T) => TResult
 type Func2<T1, T2, TResult> = (arg1: T1, arg2: T2) => TResult
 type Func3<T1, T2, T3, TResult> = (arg1: T1, arg2: T2, arg3: T3) => TResult
@@ -39,7 +41,7 @@ type Func5<T1, T2, T3, T4, T5, TResult> = (arg1: T1, arg2: T2, arg3: T3, arg4: T
 type Func6<T1, T2, T3, T4, T5, T6, TResult> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => TResult
 type Func7<T1, T2, T3, T4, T5, T6, T7, TResult> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7) => TResult
 type Func8<T1, T2, T3, T4, T5, T6, T7, T8, TResult> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8) => TResult
-
+type Func9<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> = (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8, arg9: T9) => TResult
 
 
 declare global {
@@ -68,12 +70,14 @@ declare global {
 			<T1, T2, T3, T4, T5, T6, T7, TResult>(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7) : TResult
 			<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, arg7: T7, arg8: T8) : TResult
 	}
-*/
 
 
 
 	function Funx<TResult>() : TResult
 	function Funx<T, TResult>(arg: T) : TResult
 	function Funx<T1, T2, TResult>(arg1: T1, arg2: T2) : TResult
+
+*/
+
 
 }
