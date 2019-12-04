@@ -7,20 +7,36 @@ export class Enumerable {
 	public static Aggregate<TSource, TAccumulate>(source: TSource[], seed: TAccumulate, func: Func2<TAccumulate, TSource, TAccumulate>) : TAccumulate
 	public static Aggregate<TSource, TAccumulate, TResult>(source: TSource[], seed: TAccumulate, func: Func2<TAccumulate, TSource, TAccumulate>, resultSelector: Func1<TAccumulate, TResult>) : TResult
 	public static Aggregate<TSource, TAccumulate, TResult>(source: TSource[], seed: TAccumulate, func?: Func2<TAccumulate, TSource, TAccumulate>, resultSelector?: Func1<TAccumulate, TResult>) : TResult {
-		if (!source)
-			throw Errors.ArgumentNull('source')
+		if (!source) throw Errors.ArgumentNull('source')
 		if (arguments.length === 2 && seed instanceof Function)
 			[seed, func] = [undefined as unknown as TAccumulate, seed as unknown as Func2<TAccumulate, TSource, TAccumulate>]
-		if (!func)
-			throw Errors.ArgumentNull('func')
-
+		if (!func) throw Errors.ArgumentNull('func')
 		if (!resultSelector) resultSelector = e => e as unknown as TResult
 
 		let result = seed === undefined ? source[0] as unknown as TAccumulate : seed
-		if (func === undefined) return undefined as unknown as TResult
+		// @ts-ignore
 		source.forEach(e => result = func(result, e))
 		return resultSelector(result)
 	}
+
+	public static All<TSource>(source: TSource[], func: Func1<TSource, boolean>) {
+		if (!source) throw Errors.ArgumentNull('source')
+		if (!func) throw Errors.ArgumentNull('func')
+		return source.every(func)
+	}
+
+	public static Any<TSource>(source: TSource[]) : boolean
+	public static Any<TSource>(source: TSource[], func: Func1<TSource, boolean>) : boolean
+	public static Any<TSource>(source: TSource[], func?: Func1<TSource, boolean>) {
+		if (!source) throw Errors.ArgumentNull('source')
+		if (!func) return !!source.length
+		return source.some(func)
+	}
+
+	public static Append<TSource>(sourc: TSource[], element: TSource) {
+		
+	}
+
 
 	public static GroupBy<TSource, TKey>(source: TSource[], keySelector: Func1<TSource, TKey>) : [TKey, TSource[]][] {
 		const result = new Map<TKey, TSource[]>()
