@@ -25,17 +25,65 @@ export class Enumerable {
 		return source.every(func)
 	}
 
+	public static Average(source: number[]) : number
+	public static Average<TSource>(source: TSource[], selector: Func1<TSource, number>) : number
+	public static Average<TSource>(source: TSource[], selector?: Func1<TSource, number>) : number {
+		if (!source) throw Errors.ArgumentNull('source')
+		if (selector) return this.Average(source.map(selector))
+		if (source.length) return 0
+		return this.Sum(this.Cast<number>(source)) / source.length
+	}
+
+	public static Cast<TResult>(source: any[]) {
+		return source as TResult[]
+	}
+
+	public static Concat<TSource>(first: TSource[], second: TSource[]) {
+		if (!first) throw Errors.ArgumentNull('first')
+		if (!second) throw Errors.ArgumentNull('second')
+		return first.concat(second)
+	}
+
+
+	public static Contains<TSource>(source: TSource[], value: TSource) : boolean
+	public static Contains<TSource>(source: TSource[], value: TSource, comparer: EqualityComparer<TSource, TSource>) : boolean
+	public static Contains<TSource>(source: TSource[], value: TSource, comparer?: EqualityComparer<TSource, TSource>) : boolean {
+		if (!source) throw Errors.ArgumentNull('source')
+		if (!comparer) return source.includes(value)
+		return this.Any(source, e => comparer(e, value))
+	}
+
+	public static Count<TSource>(source: TSource[]) : number
+	public static Count<TSource>(source: TSource[], predicate: Predicate<TSource>) : number
+	public static Count<TSource>(source: TSource[], predicate?: Predicate<TSource>) : number {
+		if (!source) throw Errors.ArgumentNull('source')
+		if (!predicate) return source.length
+		let result = 0
+		source.forEach(e => predicate(e) && (result++))
+		return result
+	}
+
+
+	public static DefaultIfEmpty<TSource>(source: TSource[], defaultValue: TSource = null as unknown as TSource) {
+		if (!source) throw Errors.ArgumentNull('source')
+		if (!source.length) return [defaultValue]
+		return source
+	}
+
+
 	public static Any<TSource>(source: TSource[]) : boolean
 	public static Any<TSource>(source: TSource[], func: Func1<TSource, boolean>) : boolean
-	public static Any<TSource>(source: TSource[], func?: Func1<TSource, boolean>) {
+	public static Any<TSource>(source: TSource[], func?: Func1<TSource, boolean>) : boolean {
 		if (!source) throw Errors.ArgumentNull('source')
 		if (!func) return !!source.length
 		return source.some(func)
 	}
 
-	public static Append<TSource>(sourc: TSource[], element: TSource) {
-		
+	public static Append<TSource>(source: TSource[], element: TSource) {
+		return [...source, element]
 	}
+
+
 
 
 	public static GroupBy<TSource, TKey>(source: TSource[], keySelector: Func1<TSource, TKey>) : [TKey, TSource[]][] {
@@ -68,7 +116,7 @@ export class Enumerable {
 		return result
 	}
 
-
+	public static Sum(source: number[]) : number
 	public static Sum<TSource>(source: TSource[], selector?: Func1<TSource, number>) : number {
 		assert.ok(source, 'need source')
 		if (selector) return this.Sum(source.map(selector))

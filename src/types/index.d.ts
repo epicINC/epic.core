@@ -21,6 +21,8 @@ type Deferred<T> = {
 type Predicate<T> = (item: T) => boolean
 type Converter<TInput, TOutput> = (item: TInput) => TOutput
 
+type EqualityComparer<T1, T2> = (arg1: T1, arg2: T2) => boolean
+
 type Action = () => void
 type Action1<T> = (arg: T) => void
 type Action2<T1, T2> = (arg1: T1, arg2: T2) => void
