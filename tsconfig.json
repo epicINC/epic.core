@@ -3,7 +3,7 @@
 			"baseUrl": ".",
 			"outDir": "./dist/",
 			"module": "commonjs",
-			"target": "esnext",
+			"target": "ES2018",
 			"moduleResolution": "node",
 			"sourceMap": true,
 			"esModuleInterop": true,

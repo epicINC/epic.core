@@ -7,16 +7,16 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-		"test": "jest",
-		"benchmark": "ts-node -P ./tsconfig.json --pretty ./benchmark"
+    "test": "jest",
+    "benchmark": "ts-node -P ./tsconfig.json --pretty ./benchmark"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.15",
-		"@types/node": "^12.6.6",
-		"@types/benchmark": "^2.1.4",
+    "@types/benchmark": "^1.0.31",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.6.6",
     "benchmark": "^2.1.4",
-    "jest": "^24.8.0",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3"
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2"
   }
 }

@@ -27,7 +27,7 @@ export class Parallel {
 		return await this.For(0, collection.length, e => fn(collection[e], e))
 	}
 
-	static async Invoke(action: Action0[]) {
+	static async Invoke(action: Action[]) {
 
 	}
 
