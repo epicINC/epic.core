@@ -183,9 +183,20 @@ export class Enumerable {
 		return Array.from(result.entries())
 	}
 
-	public static GroupBy<TSource, TKey, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, resultSelector: Func2<TKey, TSource[], TResult>, comparer: EqualityComparer<TKey>) : TResult[]
-	public static GroupBy<TSource, TKey, TElement, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, elementSelector?: Func1<TSource, TElement>, resultSelector?: Func2<TKey, TElement[], TResult>, comparer?: EqualityComparer<TKey>) : TResult[] {
+	public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>) : IGrouping<TKey, TSource> // 2
+	public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>, comparer: EqualityComparer<TKey> ) : IGrouping<TKey, TSource> // 3
+	public static GroupBy<TSource, TKey, TElement>(source: TSource[], keySelector: Func1<TSource, TKey>, elementSelector: Func1<TSource, TElement>) : IGrouping<TKey, TElement> // 3
+	public static GroupBy<TSource, TKey, TElement>(source: TSource[], keySelector: Func1<TSource, TKey>, elementSelector: Func1<TSource, TElement>, comparer: EqualityComparer<TKey>) : IGrouping<TKey, TElement> // 4
+	public static GroupBy<TSource, TKey, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, resultSelector: Func2<TKey, TSource[], TResult>) : TResult[] // 3
+	public static GroupBy<TSource, TKey, TElement, TResult>(source: TSource, keySelector: Func1<TSource, TKey>, elementSelector: Func1<TSource, TElement>, resultSelector: Func2<TKey, TElement[], TResult>) : TResult[] // 4
+	public static GroupBy<TSource, TKey, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, resultSelector: Func2<TKey, TSource[], TResult>, comparer: EqualityComparer<TKey>) : TResult[] // 4
+	public static GroupBy<TSource, TKey, TElement, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, elementSelector: Func1<TSource, TElement>,  resultSelector: Func2<TKey, TSource[], TResult>, comparer: EqualityComparer<TKey>) : TResult[] // 5
+	public static GroupBy<TSource, TKey, TElement = TSource, TResult = [TKey, TElement[]]>(source: TSource[], keySelector: Func1<TSource, TKey>, {elementSelector, resultSelector, comparer} : IGroupByParameter<TSource, TKey, TElement, TResult>) : TResult[] {
 		if (!source) throw Errors.ArgumentNull('source')
+
+		if (arguments.length === 4) {
+
+		}
 
 		if (!elementSelector) elementSelector = (e) => e as unknown as TElement
 		if (!resultSelector) resultSelector = (e, k) => [e, k] as unknown as TResult
@@ -239,3 +250,15 @@ export class Enumerable {
 
 }
 
+
+interface IGrouping<TKey, TElement> {
+	Key: TKey
+	Value: TElement[]
+}
+
+
+interface IGroupByParameter<TSource, TKey, TElement, TResult> {
+	elementSelector?: Func1<TSource, TElement>
+	resultSelector?: Func2<TKey, TSource[], TResult>
+	comparer?: EqualityComparer<TKey>
+}
