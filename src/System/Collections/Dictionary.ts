@@ -6,7 +6,13 @@ export class Dictionary<TKey, TValue> {
 	[Entries]: Map<TKey, TValue>
 	[Insert]: (key: TKey, value: TValue, add: boolean) => boolean
 
-	constructor() {
+	constructor(comparer?: EqualityComparer<TKey>) {
+
+		if (comparer) {
+
+		}
+
+
 		this[Entries] = new Map()
 		this[Insert] = this.Insert
 		return new Proxy(this, {

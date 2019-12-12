@@ -178,31 +178,42 @@ export class Enumerable {
 			if (result.has(key))
 				result.get(key)?.push(e)
 			else
-				result.set(key, [e])
+				result.set(key, [e])        
 		})
 		return Array.from(result.entries())
 	}
 
-	public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>) : IGrouping<TKey, TSource> // 2
-	public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>, comparer: EqualityComparer<TKey> ) : IGrouping<TKey, TSource> // 3
-	public static GroupBy<TSource, TKey, TElement>(source: TSource[], keySelector: Func1<TSource, TKey>, elementSelector: Func1<TSource, TElement>) : IGrouping<TKey, TElement> // 3
-	public static GroupBy<TSource, TKey, TElement>(source: TSource[], keySelector: Func1<TSource, TKey>, elementSelector: Func1<TSource, TElement>, comparer: EqualityComparer<TKey>) : IGrouping<TKey, TElement> // 4
-	public static GroupBy<TSource, TKey, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, resultSelector: Func2<TKey, TSource[], TResult>) : TResult[] // 3
-	public static GroupBy<TSource, TKey, TElement, TResult>(source: TSource, keySelector: Func1<TSource, TKey>, elementSelector: Func1<TSource, TElement>, resultSelector: Func2<TKey, TElement[], TResult>) : TResult[] // 4
-	public static GroupBy<TSource, TKey, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, resultSelector: Func2<TKey, TSource[], TResult>, comparer: EqualityComparer<TKey>) : TResult[] // 4
-	public static GroupBy<TSource, TKey, TElement, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, elementSelector: Func1<TSource, TElement>,  resultSelector: Func2<TKey, TSource[], TResult>, comparer: EqualityComparer<TKey>) : TResult[] // 5
-	public static GroupBy<TSource, TKey, TElement = TSource, TResult = [TKey, TElement[]]>(source: TSource[], keySelector: Func1<TSource, TKey>, {elementSelector, resultSelector, comparer} : IGroupByParameter<TSource, TKey, TElement, TResult>) : TResult[] {
+	//public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>) : IGrouping<TKey, TSource> // 2
+	//public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>, comparer: EqualityComparer<TKey>) : IGrouping<TKey, TSource> // 3
+	public static GroupBy<TSource, TKey>(source: TSource[], keySelector: Func1<TSource, TKey>) : [TKey, TSource[]][]
+	public static GroupBy<TSource, TKey, TElement, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, {elementSelector, resultSelector, comparer}: IGroupByParameter<TSource, TKey, TElement, TResult>) : TResult[]
+	public static GroupBy<TSource, TKey, TElement = TSource, TResult = [TKey, TElement[]]>(source: TSource[], keySelector: Func1<TSource, TKey>, {elementSelector, resultSelector, comparer}: IGroupByParameter<TSource, TKey, TElement, TResult> = {}) : TResult[] {
 		if (!source) throw Errors.ArgumentNull('source')
-
-		if (arguments.length === 4) {
-
-		}
-
+		if (!keySelector) throw Errors.ArgumentNull('keySelector')
+		
 		if (!elementSelector) elementSelector = (e) => e as unknown as TElement
-		if (!resultSelector) resultSelector = (e, k) => [e, k] as unknown as TResult
-		if (!comparer) comparer = (first, second) => first === second
 
 		let key: TKey, value: TElement, index: number
+
+		if (!comparer) {
+			const map = new Map<TKey, TElement[]>()
+
+			for (let item of source) {
+				key = keySelector(item)
+				if (map.has(key))
+					map.get(key)?.push(elementSelector(item))
+				else
+					map.set(key, [elementSelector(item)])
+			}
+
+			if (!resultSelector) return Array.from(map.entries()) as unknown as TResult[]
+
+			const result = new Array<TResult>(map.size)
+			for (let item of map.entries())
+				result.push(resultSelector(item[0], item[1]))
+			return result 
+		}
+
 		const keys: TKey[] = [], values: TElement[][] = []
 		for (let item of source) {
 			key = keySelector(item), value = elementSelector(item), index = keys.findIndex(e => comparer(key, e))
@@ -214,11 +225,25 @@ export class Enumerable {
 			values.push([value])
 		}
 
-		const result: TResult[] = []
-		for (let i = 0; i < keys.length; i++)
-			result.push(resultSelector(keys[i], values[i]))
+		const result = []
+		if (resultSelector)
+			for (let i = 0; i < keys.length; i++)
+				result.push(resultSelector(keys[i], values[i]))
+		else
+			for (let i = 0; i < keys.length; i++)
+				result.push([keys[i], values[i]])
 		
-		return result
+		return result as unknown as TResult[]
+	}
+
+	public static GroupJoin<TOuter, TInner, TKey, TResult>(outer: TOuter[], inner: TInner[], outerKeySelector: Func1<TOuter, TKey>, innerKeySelector: Func1<TInner, TKey>, resultSelector: Func2<TOuter, TInner[], TResult>, comparer?: EqualityComparer<TKey>) {
+		if (!outer) throw Errors.ArgumentNull('outer')
+		if (!inner) throw Errors.ArgumentNull('inner')
+		if (!outerKeySelector) throw Errors.ArgumentNull('outerKeySelector')
+		if (!innerKeySelector) throw Errors.ArgumentNull('innerKeySelector')
+		if (!resultSelector) throw Errors.ArgumentNull('resultSelector')
+		
+
 	}
 
 
@@ -259,6 +284,6 @@ interface IGrouping<TKey, TElement> {
 
 interface IGroupByParameter<TSource, TKey, TElement, TResult> {
 	elementSelector?: Func1<TSource, TElement>
-	resultSelector?: Func2<TKey, TSource[], TResult>
+	resultSelector?: Func2<TKey, TElement[], TResult>
 	comparer?: EqualityComparer<TKey>
 }

@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
 			"baseUrl": ".",
-			"outDir": "./dist/",
-			"module": "commonjs",
+			"rootDir": "src",
+			"outDir": "dist",
 			"target": "ES2018",
+			"module": "commonjs",
 			"moduleResolution": "node",
 			"sourceMap": true,
 			"esModuleInterop": true,
@@ -16,6 +17,8 @@
 			"noImplicitThis": true,
 			"suppressImplicitAnyIndexErrors": true,
 			"declaration": true,
+			"declarationMap": true,
+			"declarationDir": "types",
 			"importHelpers": false,
 			"alwaysStrict": true,
 			"pretty": true,
@@ -27,8 +30,8 @@
 			"incremental": true,
 			"paths": {
 				"*": [
-						"./node_modules/*",
-						"./src/types/*"
+						"node_modules/*",
+						"src/types/*"
 				]
 			},
     },
@@ -37,6 +40,6 @@
         "tabSize": 2
 		},
     "include": [
-        "./src/**/*"
+        "src/**/*"
     ]
 }
