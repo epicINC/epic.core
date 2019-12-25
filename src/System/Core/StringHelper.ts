@@ -13,6 +13,9 @@ export class StringHelper {
 		})
 	}
 
+
+	
+
 	private static FormatAdv(format: string, ...args: any[]) {
 		let i = 0
 		return format.replace(/%([a-z]{1})/g, (match, type) => {

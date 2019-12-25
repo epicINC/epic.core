@@ -86,11 +86,11 @@ export class Enumerable {
 
 	public static Distinct<TSource>(source: TSource[]) : TSource[]
 	public static Distinct<TSource>(source: TSource[], comparer: EqualityComparer<TSource>) : TSource[]
-	public static Distinct<TSource>(source: TSource[], comparer?: EqualityComparer<TSource>) : TSource[] {
+	public static Distinct<TSource>(source: TSource[], comparer?: EqualityComparer<TSource>) : TSource[] { 
 		if (!source) throw Errors.ArgumentNull('source')
 		if (!source.length || source.length === 1) return source
 		if (!comparer) return Array.from(new Set(source))
-		
+
 		const result = [source[0]]
 		for (let item of source) {
 			if (this.Contains(result, item, comparer)) continue
@@ -183,8 +183,8 @@ export class Enumerable {
 		return Array.from(result.entries())
 	}
 
-	//public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>) : IGrouping<TKey, TSource> // 2
-	//public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>, comparer: EqualityComparer<TKey>) : IGrouping<TKey, TSource> // 3
+	// public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>) : IGrouping<TKey, TSource> // 2
+	// public static GroupBy<TSource, TKey>(source: TSource, keySelector: Func1<TSource, TKey>, comparer: EqualityComparer<TKey>) : IGrouping<TKey, TSource> // 3
 	public static GroupBy<TSource, TKey>(source: TSource[], keySelector: Func1<TSource, TKey>) : [TKey, TSource[]][]
 	public static GroupBy<TSource, TKey, TElement, TResult>(source: TSource[], keySelector: Func1<TSource, TKey>, {elementSelector, resultSelector, comparer}: IGroupByParameter<TSource, TKey, TElement, TResult>) : TResult[]
 	public static GroupBy<TSource, TKey, TElement = TSource, TResult = [TKey, TElement[]]>(source: TSource[], keySelector: Func1<TSource, TKey>, {elementSelector, resultSelector, comparer}: IGroupByParameter<TSource, TKey, TElement, TResult> = {}) : TResult[] {
@@ -232,7 +232,7 @@ export class Enumerable {
 		else
 			for (let i = 0; i < keys.length; i++)
 				result.push([keys[i], values[i]])
-		
+
 		return result as unknown as TResult[]
 	}
 
@@ -242,7 +242,7 @@ export class Enumerable {
 		if (!outerKeySelector) throw Errors.ArgumentNull('outerKeySelector')
 		if (!innerKeySelector) throw Errors.ArgumentNull('innerKeySelector')
 		if (!resultSelector) throw Errors.ArgumentNull('resultSelector')
-		
+
 
 	}
 
@@ -287,3 +287,11 @@ interface IGroupByParameter<TSource, TKey, TElement, TResult> {
 	resultSelector?: Func2<TKey, TElement[], TResult>
 	comparer?: EqualityComparer<TKey>
 }
+
+
+/*
+dasfasd
+sdafsdadfas
+asdfa
+
+*/

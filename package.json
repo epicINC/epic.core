@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "benchmark": "ts-node -P ./tsconfig.json --pretty ./benchmark"
+    "benchmark": "tsnd -P ./tsconfig.json --pretty ./benchmark"
   },
   "devDependencies": {
     "@types/benchmark": "^1.0.31",
