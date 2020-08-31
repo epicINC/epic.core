@@ -34,16 +34,16 @@ const locals = {
 
 Date.prototype.format = function (format: string, lng = 'zh-cn') {
 	const local = locals[lng]
-	//let cache = {}
+	// let cache = {}
 	return format.replace(/((y+)|(M+)|(d+)|(h+)|(H+)|(m+)|(s+)|(t+)|(z+)|(f+)|(F+))/g, (substring: string, ...args: any[]) => {
 		const len = substring.length
 		switch (substring[0]) {
 			case 'y':
 				if (len > 3) return pad(this.getFullYear(), len)
-				return pad(this.getFullYear()%100, len)
+				return pad(this.getFullYear() % 100, len)
 			case 'M':
-				if (len === 1) return this.getMonth()+1
-				if (len === 2) return pad(this.getMonth()+1, 2)
+				if (len === 1) return this.getMonth() + 1
+				if (len === 2) return pad(this.getMonth() + 1, 2)
 				if (len === 3) return local.abbmonths[this.getMonth()]
 				if (len === 4) return local.months[this.getMonth()]
 			case 'd':

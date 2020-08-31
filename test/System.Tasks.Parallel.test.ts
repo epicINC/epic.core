@@ -16,5 +16,5 @@ test('System.Tasks.Parallel: For', async () => {
 	})
 	const hrend = process.hrtime(hrstart)
 	expect(received).toStrictEqual(expected)
-	expect(hrend[1] / 1000000).toBeLessThan(2*delay)
+	expect(hrend[1] / 1000000).toBeLessThan(2 * delay)
 })

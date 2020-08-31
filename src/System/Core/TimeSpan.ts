@@ -37,7 +37,6 @@ export class TimeSpan implements IComparable<TimeSpan>,  IEquatable<TimeSpan>, I
 		return this.ticks
 	}
 
-	
 	get TotalDays() {
 		return this.ticks * 1.1574074074074074E-8
 	}

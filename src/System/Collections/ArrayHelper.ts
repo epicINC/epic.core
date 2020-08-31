@@ -18,12 +18,12 @@ export class ArrayHelper {
 		src.length = srcLen + destLen
 
 		// Add arr2 items to arr1
-		for(let i = 0; i < destLen; i++){
+		for (let i = 0; i < destLen; i++) {
 			src[srcLen + i] = dest[i]
 		}
 
 		return src
-		//return this.CopyTo(src, src.length, dest, 0, dest.length)
+		// return this.CopyTo(src, src.length, dest, 0, dest.length)
 	}
 
 
@@ -32,14 +32,14 @@ export class ArrayHelper {
 		const len = srcOffset + count
 		if (len > src.length) src.length = len
 
-		for(let i = 0; i < count; i++)
+		for (let i = 0; i < count; i++)
 			src[srcOffset + i] = dest[destOffset + i]
 		return src
 	}
 
 	static Binary<T>(target: T[], value: T) {
-		let low = 0, hight = target.length -1, mid: number
-		while(low <= hight) {
+		let low = 0, hight = target.length - 1, mid: number
+		while (low <= hight) {
 			mid = (low + hight) >>> 1
 			if (target[mid] < value)
 				low = mid + 1
@@ -50,7 +50,6 @@ export class ArrayHelper {
 		}
 		return -1
 	}
- 
 
 	static DistinctSet<T>(target: T[], selector?: Indexable | Func1<T, unknown>) {
 		if (!selector) return Array.from(new Set(target))
@@ -66,14 +65,14 @@ export class ArrayHelper {
 
 	static DistinctBinary<T, K = unknown>(target: T[], selector?: Indexable | Func1<T, K>) {
 		const fn: Func1<T, K> = selector ? (typeof(selector) !== 'function' ? Selector.MakeSelector<T>(selector) : selector) : (e: T) => e
-		
+
 		let
 			set = [target[0]],
 			bst: BinaryNode<K> = {v: fn(target[0]), l: null, r: null}
 
-			for(let i = 1, item: T, key: K, uv, root, count = target.length; i < count; i++) {
+			for (let i = 1, item: T, key: K, uv, root, count = target.length; i < count; i++) {
 				item = target[i], key = fn(item), root = bst, uv = true
-				while(true) {
+				while (true) {
 					if (key > root.v) {
 						if (!root.r) {
 							root.r = {v: key, l: null, r: null}

@@ -1,3 +1,3 @@
 export const RegexLib = Object.freeze({
-	 StringFormat: /{(\d+)}/g
+		StringFormat: /{(\d+)}/g
 })

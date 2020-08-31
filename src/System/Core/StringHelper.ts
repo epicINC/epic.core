@@ -8,26 +8,23 @@ export class StringHelper {
 		if (length === 0) return format
 
 		return format.replace(RegexLib.StringFormat, (match, index) => {
-			if (index < length && args[index] !== undefined) return args[index] 
+			if (index < length && args[index] !== undefined) return args[index]
 			return match
 		})
 	}
-
-
-	
 
 	private static FormatAdv(format: string, ...args: any[]) {
 		let i = 0
 		return format.replace(/%([a-z]{1})/g, (match, type) => {
 			let result
-			switch(type) {
+			switch (type) {
 				case 's':
 					result = args[i]
 					break
 			}
 			i++
 			return result !== undefined ? result : match
-		}); 
+		})
 	}
 }
 

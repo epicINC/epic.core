@@ -9,11 +9,11 @@ export enum Pattern {
 }
 
 export class TimeSpanFormat {
-	
+
 	static Format(value: TimeSpan, format: string, formatProvider: IFormatProvider) {
 		if (!format) format = 'c'
 		if (format.length === 1) {
-			switch(format[0]) {
+			switch (format[0]) {
 				case 'T':
 				case 'c':
 				case 't':

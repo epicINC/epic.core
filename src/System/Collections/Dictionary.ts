@@ -36,7 +36,6 @@ export class Dictionary<TKey, TValue> {
 	private Insert(key: TKey, value: TValue, add: boolean) {
 		if (add && this[Entries].has(key)) return false
 		this[Entries].set(key, value)
-		
 		return true
 	}
 
@@ -51,7 +50,7 @@ export class Dictionary<TKey, TValue> {
 	ContainsValue(value: TValue) : boolean {
 		if (!this[Entries].size) return false
 
-		for(let item of this[Entries].values()){
+		for (let item of this[Entries].values()) {
 			if (value === item) return true
 		}
 		return false

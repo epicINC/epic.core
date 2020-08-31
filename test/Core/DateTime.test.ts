@@ -181,7 +181,7 @@ test('DateTime.Format#ff', () => {
 	expect(date2.format(format)).toEqual('32')
 })
 // milliseconds
- test('DateTime.Format#fff', () => {
+test('DateTime.Format#fff', () => {
 	const format = 'fff'
 	expect(date1.format(format)).toEqual('000')
 	expect(date2.format(format)).toEqual('321')
@@ -201,7 +201,7 @@ test('DateTime.Format#FF', () => {
 	expect(date2.format(format)).toEqual('32')
 })
 // none-zero milliseconds
- test('DateTime.Format#FFF', () => {
+test('DateTime.Format#FFF', () => {
 	const format = 'FFF'
 	expect(date1.format(format)).toEqual('')
 	expect(date2.format(format)).toEqual('321')
@@ -241,7 +241,7 @@ test('DateTime.Format#zzz', () => {
 		timezoneOffset = date1.getTimezoneOffset(),
 		timeZone = Math.abs(Math.floor(timezoneOffset / 60)),
 		negative = timezoneOffset > 0 ? '-' : '+',
-		expected = timeZone ? (negative + timeZone.toString().padStart(2, '0')) +':'+ (Math.abs(timezoneOffset % 60).toString().padStart(2, '0')) : ''
+		expected = timeZone ? (negative + timeZone.toString().padStart(2, '0')) + ':' + (Math.abs(timezoneOffset % 60).toString().padStart(2, '0')) : ''
 	expect(date1.format(format)).toEqual(expected)
 	expect(date2.format(format)).toEqual(expected)
 })

@@ -14,13 +14,13 @@ class RadixAlgorithm {
 		if (!this.charsMap) this.init();
 
 		let qutient = +value, result = [], mod
-	 	do {
-	    mod = qutient % radix
-	    qutient = (qutient - mod) / radix
-	    result.unshift(this.chars[mod])
-	  } while (qutient)
+		do {
+			mod = qutient % radix
+			qutient = (qutient - mod) / radix
+			result.unshift(this.chars[mod])
+		} while (qutient)
 
-	  return result.join('')
+		return result.join('')
 	}
 
 	static from(value: string, radix: number) {
@@ -28,7 +28,7 @@ class RadixAlgorithm {
 
 		let text = String(value), count = text.length, i = 0, result = 0
 		while (i < count)
-		  result += Math.pow(radix, i++) * (this.charsMap[text.charAt(count - i)] || 0)
+			result += Math.pow(radix, i++) * (this.charsMap[text.charAt(count - i)] || 0)
 		return result
 	}
 }

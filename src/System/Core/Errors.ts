@@ -60,7 +60,7 @@ export class ArgumentNullException extends ArgumentException {
 
 
 export class ArgumentOutOfRangeException extends ArgumentException {
-	
+
 	constructor(paramName?: string, message?: string) {
 		super(paramName, message)
 	}

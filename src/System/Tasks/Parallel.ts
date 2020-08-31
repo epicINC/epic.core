@@ -1,16 +1,15 @@
 const numCPUs = require('os').cpus().length
-import {ArrayHelper} from '../Collections/ArrayHelper'
+import { ArrayHelper } from '../Collections/ArrayHelper'
 
 export class Parallel {
 	static options = { workers: numCPUs}
 
-	
 	static async For<T = any>(from: number, to: number, fn: Func1<number, Promise<T>>) {
 		if (to <= from) return
 		const result: T[] = [], step = this.options.workers, items: Promise<T>[] = new Array(step)
 		let currentStep = 0
-		for(let i = from; i < to; i++) {
-			//items.push(fn(i))
+		for (let i = from; i < to; i++) {
+			// items.push(fn(i))
 			items[currentStep++] = fn(i)
 			if (currentStep === step) {
 				ArrayHelper.Merge(result, await Promise.all(items))
@@ -19,7 +18,7 @@ export class Parallel {
 		}
 		if (currentStep)
 			ArrayHelper.Merge(result, await Promise.all(items.slice(0, currentStep)))
-			
+
 		return result
 	}
 

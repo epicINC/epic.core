@@ -3,7 +3,7 @@ import { EnumerableHelpers } from './EnumerableHelpers'
 // ref: https://github.com/dotnet/corefx/blob/master/src/System.Collections/src/System/Collections/Generic/Queue.cs
 export class Queue<T = any> {
 	private array: T[]
-	
+
 	constructor(collection?: ArrayLike<T>) {
 		this.array = collection ? EnumerableHelpers.ToArray(collection) : []
 	}
