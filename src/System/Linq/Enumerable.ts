@@ -86,7 +86,7 @@ export class Enumerable {
 
 	public static Distinct<TSource>(source: TSource[]) : TSource[]
 	public static Distinct<TSource>(source: TSource[], comparer: EqualityComparer<TSource>) : TSource[]
-	public static Distinct<TSource>(source: TSource[], comparer?: EqualityComparer<TSource>) : TSource[] { 
+	public static Distinct<TSource>(source: TSource[], comparer?: EqualityComparer<TSource>) : TSource[] {
 		if (!source) throw Errors.ArgumentNull('source')
 		if (!source.length || source.length === 1) return source
 		if (!comparer) return Array.from(new Set(source))
@@ -178,7 +178,7 @@ export class Enumerable {
 			if (result.has(key))
 				result.get(key)?.push(e)
 			else
-				result.set(key, [e])        
+				result.set(key, [e])
 		})
 		return Array.from(result.entries())
 	}
@@ -190,7 +190,7 @@ export class Enumerable {
 	public static GroupBy<TSource, TKey, TElement = TSource, TResult = [TKey, TElement[]]>(source: TSource[], keySelector: Func1<TSource, TKey>, {elementSelector, resultSelector, comparer}: IGroupByParameter<TSource, TKey, TElement, TResult> = {}) : TResult[] {
 		if (!source) throw Errors.ArgumentNull('source')
 		if (!keySelector) throw Errors.ArgumentNull('keySelector')
-		
+
 		if (!elementSelector) elementSelector = (e) => e as unknown as TElement
 
 		let key: TKey, value: TElement, index: number
@@ -211,7 +211,7 @@ export class Enumerable {
 			const result = new Array<TResult>(map.size)
 			for (let item of map.entries())
 				result.push(resultSelector(item[0], item[1]))
-			return result 
+			return result
 		}
 
 		const keys: TKey[] = [], values: TElement[][] = []
