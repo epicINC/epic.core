@@ -1,10 +1,10 @@
-
-
 type Indexable = number | string | symbol
+type IndexableObject<T> = { [P in Indexable]: T }
+
 
 class Selector {
 	static MakeSelector<T = unknown>(selector: Indexable) {
-		return (e: T) => e[selector];
+		return (e: T) => e[selector]
 	}
 }
 
@@ -13,14 +13,21 @@ type BinaryNode<T> = {v: T, l: BinaryNode<T> | null, r: BinaryNode<T> | null}
 
 export class ArrayHelper {
 
+	static ToObject<T>(target: [], selector: Indexable | Func1<T, Indexable>) : IndexableObject<T>
+	static ToObject<T>(target: [], selector: Indexable | Func1<T, Indexable>, map?: IndexableObject<T>) : IndexableObject<T> {
+		const result = map || {}, fn = typeof(selector) !== 'function' ? Selector.MakeSelector<T>(selector) : selector
+		for (let i = 0; i < target.length; i++)
+			result[fn(target[i])] = target[i]
+		return result
+	}
+
 	static Merge<T = unknown>(src: Array<T>, dest: Array<T>) {
 		const srcLen = src.length, destLen = dest.length
 		src.length = srcLen + destLen
 
 		// Add arr2 items to arr1
-		for (let i = 0; i < destLen; i++) {
+		for (let i = 0; i < destLen; i++)
 			src[srcLen + i] = dest[i]
-		}
 
 		return src
 		// return this.CopyTo(src, src.length, dest, 0, dest.length)
