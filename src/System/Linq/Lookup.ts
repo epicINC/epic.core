@@ -1,9 +1,15 @@
 import { Errors } from '../Core/Errors'
+import { Dictionary } from '../Collections'
+import { IGrouping } from './Enumerable'
 
-class Lookup<TKey, TElement> {
+export class Lookup<TKey, TElement> {
 	private comparer: EqualityComparer<TKey>
+	private dict: Dictionary<TKey, IGrouping<TKey, TElement>>
+	private defaultKeyGrouping: IGrouping<TKey, TElement>
+
 	private constructor (comparer?: EqualityComparer<TKey>) {
 		this.comparer = comparer as unknown as EqualityComparer<TKey>
+		this.dict = new Dictionary<TKey, IGrouping<TKey, TElement>>(comparer)
 	}
 
 
@@ -15,6 +21,16 @@ class Lookup<TKey, TElement> {
 	}
 
 
+	get Count() {
+		let result = this.dict.Count
+		if (!this.defaultKeyGrouping) return result
+		return result++
+	}
+
+	Contains(key: TKey) : boolean {
+		if (key !== undefined) return this.dict.ContainsKey(key)
+		return !!this.defaultKeyGrouping
+	}
 
 	GetGrouping(key: TKey, create: boolean) : TElement[] {
 		if (this.comparer)

@@ -275,8 +275,7 @@ export class Enumerable {
 
 }
 
-
-interface IGrouping<TKey, TElement> {
+export interface IGrouping<TKey, TElement> {
 	Key: TKey
 	Value: TElement[]
 }
