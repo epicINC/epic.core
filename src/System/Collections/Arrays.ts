@@ -1,21 +1,14 @@
-type Indexable = number | string | symbol
-type IndexableObject<T> = { [P in Indexable]: T }
+import { Delegate } from '../../Epic'
 
-
-class Selector {
-	static MakeSelector<T = unknown>(selector: Indexable) {
-		return (e: T) => e[selector]
-	}
-}
 
 
 type BinaryNode<T> = {v: T, l: BinaryNode<T> | null, r: BinaryNode<T> | null}
 
-export class ArrayHelper {
+export class Arrays {
 
 	static ToObject<T>(target: [], selector: Indexable | Func1<T, Indexable>) : IndexableObject<T>
 	static ToObject<T>(target: [], selector: Indexable | Func1<T, Indexable>, map?: IndexableObject<T>) : IndexableObject<T> {
-		const result = map || {}, fn = typeof(selector) !== 'function' ? Selector.MakeSelector<T>(selector) : selector
+		const result = map || {}, fn = Delegate.Selector<T, Indexable>(selector)
 		for (let i = 0; i < target.length; i++)
 			result[fn(target[i])] = target[i]
 		return result
@@ -58,12 +51,11 @@ export class ArrayHelper {
 		return -1
 	}
 
-	static DistinctSet<T>(target: T[], selector?: Indexable | Func1<T, unknown>) {
+	static DistinctSet<T, K>(target: T[], selector?: Indexable | Func1<T, K>) {
 		if (!selector) return Array.from(new Set(target))
+		const fn = Delegate.Selector<T, K>(selector)
 
-		const fn = typeof(selector) !== 'function' ? Selector.MakeSelector<T>(selector) : selector
-
-		let set = new Set(), item
+		let set = new Set<K>(), item
 		return target.filter(e => {
 			item = fn(e)
 			return !set.has(item) && set.add(item);
@@ -71,7 +63,7 @@ export class ArrayHelper {
 	}
 
 	static DistinctBinary<T, K = unknown>(target: T[], selector?: Indexable | Func1<T, K>) {
-		const fn: Func1<T, K> = selector ? (typeof(selector) !== 'function' ? Selector.MakeSelector<T>(selector) : selector) : (e: T) => e
+		const fn: Func1<T, K> = selector ? Delegate.Selector(selector) : (e: T) => e
 
 		let
 			set = [target[0]],

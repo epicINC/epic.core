@@ -1,5 +1,5 @@
 
-import * as epic from './epic'
+import * as epic from './Epic'
 import * as System from './System'
 
 

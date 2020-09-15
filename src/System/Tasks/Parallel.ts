@@ -1,5 +1,5 @@
 const numCPUs = require('os').cpus().length
-import { ArrayHelper } from '../Collections/ArrayHelper'
+import { ArrayHelper } from '../Collections/Arrays'
 
 export class Parallel {
 	static options = { workers: numCPUs}
