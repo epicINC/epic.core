@@ -17,9 +17,9 @@ export function noop<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(arg1?: T1, arg
 
 
 export class Delegate {
-	static Selector<T, K extends keyof T>(selector: K | Func1<T, K>) {
+	static Selector<T, P extends Indexable>(selector: P | Func1<T, P>) {
 		if (typeof(selector) === 'function') return selector
-		return (e: T) => e[selector]
+		return (e: T) => e[selector as any]
 	}
 
 

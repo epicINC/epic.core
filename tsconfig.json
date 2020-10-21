@@ -39,6 +39,6 @@
         "tabSize": 2
 		},
     "include": [
-        "src/**/*", "index.d.ts"
+        "src/**/*", "src/types/index.d.ts"
 		]
 }

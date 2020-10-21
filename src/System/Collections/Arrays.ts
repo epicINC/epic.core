@@ -6,8 +6,8 @@ type BinaryNode<T> = {v: T, l: BinaryNode<T> | null, r: BinaryNode<T> | null}
 
 export class Arrays {
 
-	static ToObject<T>(target: [], selector: Indexable | Func1<T, Indexable>) : IndexableObject<T>
-	static ToObject<T>(target: [], selector: Indexable | Func1<T, Indexable>, map?: IndexableObject<T>) : IndexableObject<T> {
+	static ToObject<T>(target: T[], selector: keyof T | Func1<T, Indexable>) : IndexableObject<T>
+	static ToObject<T>(target: T[], selector: keyof T | Func1<T, Indexable>, map?: IndexableObject<T>) : IndexableObject<T> {
 		const result = map || {}, fn = Delegate.Selector<T, Indexable>(selector)
 		for (let i = 0; i < target.length; i++)
 			result[fn(target[i])] = target[i]
@@ -53,7 +53,7 @@ export class Arrays {
 
 	static DistinctSet<T, K>(target: T[], selector?: Indexable | Func1<T, K>) {
 		if (!selector) return Array.from(new Set(target))
-		const fn = Delegate.Selector<T, K>(selector)
+		const fn = Delegate.Selector<T, Indexable>(selector as any)
 
 		let set = new Set<K>(), item
 		return target.filter(e => {
@@ -63,7 +63,7 @@ export class Arrays {
 	}
 
 	static DistinctBinary<T, K = unknown>(target: T[], selector?: Indexable | Func1<T, K>) {
-		const fn: Func1<T, K> = selector ? Delegate.Selector(selector) : (e: T) => e
+		const fn: Func1<T, K> = selector ? Delegate.Selector(selector as any) : (e: T) => e
 
 		let
 			set = [target[0]],

@@ -1,5 +1,5 @@
 const numCPUs = require('os').cpus().length
-import { ArrayHelper } from '../Collections/Arrays'
+import { Arrays } from '../Collections/Arrays'
 
 export class Parallel {
 	static options = { workers: numCPUs}
@@ -12,12 +12,12 @@ export class Parallel {
 			// items.push(fn(i))
 			items[currentStep++] = fn(i)
 			if (currentStep === step) {
-				ArrayHelper.Merge(result, await Promise.all(items))
+				Arrays.Merge(result, await Promise.all(items))
 				currentStep = 0
 			}
 		}
 		if (currentStep)
-			ArrayHelper.Merge(result, await Promise.all(items.slice(0, currentStep)))
+			Arrays.Merge(result, await Promise.all(items.slice(0, currentStep)))
 
 		return result
 	}
@@ -26,7 +26,7 @@ export class Parallel {
 		return await this.For(0, collection.length, e => fn(collection[e], e))
 	}
 
-	static async Invoke(action: Action[]) {
+	static async Invoke(action: Action0[]) {
 
 	}
 

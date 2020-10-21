@@ -1,3 +1,5 @@
+import { EqualityComparer } from './EqualityComparer'
+
 const Entries = Symbol.for('Dictionary.Entries')
 const Insert = Symbol.for('Dictionary.Insert')
 const keys = new Set<any>(['Count', 'Keys', 'Values', 'Add', 'ContainsKey', 'ContainsValue', 'Remove', 'Clear', Entries, Insert])
